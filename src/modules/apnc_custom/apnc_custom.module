@@ -1,0 +1,194 @@
+<?php
+// $Id: $
+
+/**
+ * @file
+ * APNC Custom functionality
+ */
+
+/**
+ * Implementation of hook_block_info()
+ *
+ **/
+function apnc_custom_block_info() {
+  $blocks['page_right_imgs'] = array(
+    'info' => t('Page Right Images'), 
+  );
+  $blocks['homepage_slideshow'] = array(
+    'info' => t('Homepage Slideshow'), 
+  );
+  $blocks['homepage_news'] = array(
+    'info' => t('Homepage News'), 
+  );
+  $blocks['events_sidebar'] = array(
+    'info' => t('Events Sidebar'), 
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implementation of hook_block_view()
+ *
+ **/
+function apnc_custom_block_view($delta = '') {
+  $block = array();
+
+  switch ($delta) {
+    case 'page_right_imgs':
+      $block['subject'] = t('');
+      $block['content'] = apnc_custom_page_right_imgs();
+      break;
+    case 'homepage_slideshow':
+      $block['subject'] = t('');
+      $block['content'] = apnc_custom_homepage_slideshow();
+      break;
+    case 'homepage_news':
+      $block['subject'] = t('News');
+      $block['content'] = apnc_custom_homepage_news();
+      break;
+    case 'events_sidebar':
+      $block['subject'] = t('Events');
+      $block['content'] = apnc_custom_events_sidebar();
+      break;
+  }
+  return $block;
+}
+
+function apnc_custom_theme() {
+	$items = array();
+	$path = drupal_get_path('module', 'apnc_custom') . '/theme';
+	$file = 'theme.inc';
+  $items['apnc_custom_homepage_slideshow'] = array(
+    'arguments' => array(
+      'slides' => NULL,
+    ),
+    'file' => $file,
+    'path' => $path,
+  );
+  $items['apnc_custom_homepage_news'] = array(
+    'arguments' => array(
+      'news' => NULL,
+    ),
+    'file' => $file,
+    'path' => $path,
+  );
+  $items['apnc_custom_events_sidebar'] = array(
+    'arguments' => array(
+      'events' => NULL,
+    ),
+    'file' => $file,
+    'path' => $path,
+  );
+  return $items;
+}
+
+/**
+ * Show right image from page nodes
+ *
+ **/
+function apnc_custom_page_right_imgs() {
+	$node = menu_get_object('node');
+	$images = field_get_items('node', $node, 'field_page_rightimg');
+	if (!empty($images)) {
+		foreach ($images as $image) {
+			$output[] = theme('image', array('path' => $image['file']->uri));
+		}
+		return theme('item_list', array('items' => $output));
+	}
+}
+
+function apnc_custom_homepage_slideshow() {
+	//Get homepage slide nodes
+	$query = new EntityFieldQuery();
+  $query
+    ->entityCondition('bundle', 'homepage_slide')
+    ->entityCondition('entity_type', 'node')
+    ->propertyCondition('status', 1)
+    ->propertyOrderBy('created', 'DESC')
+    ->range(0, 4);
+  $result = $query->execute();
+  
+  if (empty($result)) {
+    return t('No slides');
+  }
+  
+  foreach ($result['node'] as $node) {
+  	$slide_node = node_load($node->nid, $node->vid);
+  	$slide = field_get_items('node', $slide_node, 'field_homepageslide_img');
+  	$slide_link = field_get_items('node', $slide_node, 'field_homepageslide_link');
+		$slides[] = array(
+			'file' => $slide[0],
+			'link' => $slide_link[0],
+		);
+  }
+  
+  $output = theme('apnc_custom_homepage_slideshow', $slides);
+
+  return $output;
+}
+
+function apnc_custom_homepage_news() {
+	//Get homepage news nodes
+	$query = new EntityFieldQuery();
+  $query
+    ->entityCondition('bundle', 'news')
+    ->entityCondition('entity_type', 'node')
+    ->propertyCondition('status', 1)
+    ->propertyOrderBy('created', 'DESC')
+    ->range(0, 8);
+  $result = $query->execute();
+  
+  if (empty($result)) {
+    return t('No news');
+  }
+  
+  foreach ($result['node'] as $node) {
+  	$news_node = node_load($node->nid, $node->vid);
+  	$news_img = field_get_items('node', $news_node, 'field_page_rightimg');
+		$body = field_view_field('node', $news_node, 'body', 'teaser');
+		$news[] = array(
+			'title' => $news_node->title,
+			'nid' => $news_node->nid,
+			'body' => $body[0],
+			'img' => $news_img[0],
+		);
+  }
+  
+  $output = theme('apnc_custom_homepage_news', $news);
+
+  return $output;
+}
+
+function apnc_custom_events_sidebar() {
+	//Get event nodes
+	$query = new EntityFieldQuery();
+  $query
+    ->entityCondition('bundle', 'event')
+    ->entityCondition('entity_type', 'node')
+    ->propertyCondition('status', 1)
+    ->fieldOrderBy('field_event_date', 'value')
+    ->range(0, 4);
+  $result = $query->execute();
+  
+  if (empty($result)) {
+    return t('No events');
+  }
+  
+  $content = array();
+  foreach ($result['node'] as $node) {
+  	$event_node = node_load($node->nid, $node->vid);
+  	$date = field_view_field('node', $event_node, 'field_event_date', 'teaser');
+		$location = field_get_items('node', $event_node, 'field_event_location');
+		$events[] = array(
+			'title' => $event_node->title,
+			'date' => $date[0],
+			'nid' => $event_node->nid,
+			'location' => $location[0],
+		);
+  }
+  
+  $output = $output = theme('apnc_custom_events_sidebar', $events);
+
+  return $output;
+}
