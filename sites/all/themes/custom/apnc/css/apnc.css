@@ -1,0 +1,65 @@
+/* 
+    Document   : apnc
+    Created on : May 22, 2014, 9:43:54 AM
+    Author     : Jackleen
+    Description:
+        Purpose of the stylesheet follows.
+*/
+html {
+  background:none !important;}
+
+.lfloat{float: left;}
+.rfloat{float: right;}
+.clear{clear: both;}
+a:link{ outline-style: none;}
+
+
+
+
+body.node-type-chicago-homepage .tabs-panel a:link, body.node-type-chicago-homepage .ui-tabs-panel a:link, .pannelContent a:link{color: #b82f0d;}
+body{font-family: Calibri, arial,sans-serif; font-size: 17px; color: #000000;background: #dc5c05; overflow-x: hidden; line-height: 20px;}
+.container{width: 100%; position: relative;}
+.wrapper{width: 1008px; margin: 0 auto; background: #c7baa7 ;padding-top: 50px; position: relative; z-index: 1px; }
+.topTree{background: transparent url(../images/top-tree.png) scroll no-repeat top left;  height: 811px; z-index: 2; position: absolute; left: 50%; width: 440px; margin-left: -797px;}
+
+.bottomTree{background: transparent url(../images/bottom-tree.png) scroll no-repeat left bottom;
+position: absolute;right: 50%;bottom: 0px;width: 517px;height: 467px;margin-right: -791px;z-index: 3;}
+
+
+
+.siteTitle{font-family: calibriBold, Calibri, arial,sans-serif; font-size: 55px; line-height: 54px;color: #000000; text-align: center; margin-bottom: 27px; text-transform: uppercase;}
+.titInner{color: #ffffff; font-size: 50px; font-family: calibriBold, Calibri, arial,sans-serif;line-height: 54px; text-transform: uppercase;}
+.downloadArea{margin-right: 40px;  border-radius: 0px 20px 20px 0px; -moz-border-radius: 0px 20px 20px 0px; -webkit-border-radius: 0px 20px 20px 0px;background: #dc5c05;  text-align: right; padding: 4px 10px 4px 0; height: 41px;}
+.downloadArea span{display: inline-block;vertical-align: top;padding-top: 13px;font-family: calibriBold, Calibri, arial,sans-serif;; color: #ffffff; font-size: 14px; padding-right: 10px;}
+a.btnDownload{display: inline-block; width: 36px; height: 36px; background: transparent url(../images/icons.png) scroll no-repeat 0 0px;}
+#innerWrapper{padding:  0  40px; z-index: 4; position: relative; padding-bottom: 500px;}
+#photoGallery{padding: 30px 0px;}
+.photoItem{margin-right: 16px; position: relative;}
+.photoItem img{border-radius: 15px;}
+.photoItem.last{margin-right: 0px;}
+.play{display: inline-block; width: 64px; height: 50px; background: transparent url(../images/icons.png) scroll no-repeat 0px -37px; position: absolute; right: 10px; top: 15px;}
+
+.navArea{width: 139px; margin-right: 20px;}
+.navContArea{width:769px;}
+div.btnNav{ background: #d89466;  cursor: pointer; border-radius: 10px; padding: 15px 9px; text-transform: uppercase; text-align: center; margin-bottom: 10px; }
+.btnNav.active, div.btnNav:hover{ background: #dc5c05;font-family: calibriBold, Calibri, arial,sans-serif;color: #ffffff; font-weight: bold;}
+div.btnNav:hover a{font-family: calibriBold, Calibri, arial,sans-serif;color: #ffffff;font-weight: bold;} 
+div.btnNav a{font-family: calibriLight, Calibri, arial,sans-serif; font-size: 16px; color: #000000; text-decoration: none;}
+.btnNav.active a, div.btnNav a:hover{font-family: calibriBold, Calibri, arial,sans-serif;color: #ffffff; font-weight: bold;}
+.key, .success{margin-top: 20px;}
+.key{background:#64ab23 url('../images/tit-keyie8.png') scroll no-repeat top  left \9; background:#64ab23 url('../images/tit-key.png') scroll no-repeat top 34px left 20px; padding: 30px 25px 30px 125px; min-height: 220px;}
+.readMore{background: #ffffff; border-radius: 10px; display: inline-block;padding:10px 20px;    float: right;    margin: 20px 0 0;}
+.readMore a{font-family: calibriBold, Calibri, arial,sans-serif; font-size: 18px; color: #000000; text-decoration: underline; text-transform: uppercase; }
+.readMore a:hover{text-decoration: none;}
+.success{background:#64ab23 url('../images/tit-successie8.png') scroll no-repeat top left\9;background:#64ab23 url('../images/tit-success.png') scroll no-repeat top 34px left 20px; padding: 30px 25px 30px 125px; min-height: 250px;}
+.tabs-panel-inner{padding: 10px 30px 30px;}
+.pannelContent{padding: 30px;}
+
+div#apncFooter{height: 90px; color: #ffffff;background: #dc5c05; padding: 30px 50px 20px 20px;}
+#footerWrapper{width: 928px; margin: 0 auto; }
+.footerBold{font-family: calibriBold, Calibri, arial,sans-serif; font-size: 23px; color: #ffffff; text-transform: uppercase}
+div#apncFooter a{font-family: calibriLight, Calibri, arial,sans-serif; font-size: 15px; text-transform: uppercase; color: #ffffff; text-decoration: none;}
+.socialLinks{margin-top: -30px;}
+.socialLinks a{display: inline-block; margin-right: 6px;}
+ol, ul{list-style: disc;}
+lo li, ul li{margin-left: 40px;}
