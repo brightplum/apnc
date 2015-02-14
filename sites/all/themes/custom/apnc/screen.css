@@ -85,7 +85,18 @@ ul#top_nav {
       color: #019b14; }
 
 ul#top_nav li:hover ul {
-  display: block; }
+  display: block; 
+}
+
+ul#top_nav li:hover ul li ul {
+  display: none;
+}
+
+ul#top_nav li:hover ul li:hover ul {
+  display: block;
+  left: 120px;
+  top: 0px;
+}
 
 body.home div#home_main {
   overflow: hidden;
