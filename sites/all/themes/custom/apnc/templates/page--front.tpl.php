@@ -1,8 +1,5 @@
 	<div id="site_title">
     <?php if ($site_name): ?>
-      <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home" class="bottom">
-      	<?php print $site_name; ?>
-      </a>
       <a class="top" href="/"></a>
     <?php endif; ?>
 	</div>

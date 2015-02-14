@@ -7,7 +7,7 @@ a:hover, a:active {
 
 html {
   font-family: helvetica, arial, sans-serif;
-  background: url(images/header_illustration.png) no-repeat center top;
+  background: url(images/communities_united_banner_apnc.jpg) no-repeat center top;
   border-bottom: 20px solid #e3e3e3;
   margin: 0;
   padding: 0; }
@@ -22,15 +22,16 @@ div.container {
 
 div#site_title {
   width: 861px;
-  height: 64px;
+  height: 90px;
   position: relative;
-  margin: 160px auto 12px auto; }
+  margin: 160px auto 70px auto; }
   div#site_title .top {
     position: absolute;
     width: 100%;
     top: 0;
     left: 0;
     height: 100%;
+    display: none;
     background: url(images/wordmark.png) no-repeat top left; }
 
 ul#top_nav {
