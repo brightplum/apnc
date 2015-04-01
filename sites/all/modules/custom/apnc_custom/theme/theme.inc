@@ -42,7 +42,8 @@ function theme_apnc_custom_homepage_news($news) {
   foreach ($news as $news_item) {
   	$file = file_load($news_item['img']['fid']);
   	$title = $news_item['title'];
-  	$body = drupal_render($news_item['body']);
+	$body = $news_item['body'];
+  	$body = drupal_render($body);
   	$path = 'node/' . $news_item['nid'];
   	$thumb = image_style_url('news_thumb', $file->uri);
 
