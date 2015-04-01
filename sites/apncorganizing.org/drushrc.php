@@ -98,7 +98,7 @@ $options['packages'] = array (
       'owner' => '',
       'status' => '1',
       'bootstrap' => '0',
-      'schema_version' => '7008',
+      'schema_version' => '7009',
       'weight' => '-5',
       'info' => 
       array (
@@ -128,9 +128,9 @@ $options['packages'] = array (
       'name' => 'blog',
       'type' => 'module',
       'owner' => '',
-      'status' => '0',
+      'status' => '1',
       'bootstrap' => '0',
-      'schema_version' => 0,
+      'schema_version' => '0',
       'weight' => '0',
       'info' => 
       array (
@@ -366,8 +366,8 @@ $options['packages'] = array (
       'name' => 'dblog',
       'type' => 'module',
       'owner' => '',
-      'status' => '1',
-      'bootstrap' => '1',
+      'status' => '0',
+      'bootstrap' => '0',
       'schema_version' => '7002',
       'weight' => '0',
       'info' => 
@@ -964,7 +964,7 @@ $options['packages'] = array (
     ),
     'admin' => 
     array (
-      'filename' => '/data/all/020/o_contrib_seven/admin/admin.module',
+      'filename' => '/data/all/021/o_contrib_seven/admin/admin.module',
       'name' => 'admin',
       'type' => 'module',
       'owner' => '',
@@ -1002,7 +1002,7 @@ $options['packages'] = array (
     ),
     'boost' => 
     array (
-      'filename' => '/data/all/020/o_contrib_seven/boost/boost.module',
+      'filename' => '/data/all/021/o_contrib_seven/boost/boost.module',
       'name' => 'boost',
       'type' => 'module',
       'owner' => '',
@@ -1040,7 +1040,7 @@ $options['packages'] = array (
     ),
     'boost_crawler' => 
     array (
-      'filename' => '/data/all/020/o_contrib_seven/boost/boost_crawler/boost_crawler.module',
+      'filename' => '/data/all/021/o_contrib_seven/boost/boost_crawler/boost_crawler.module',
       'name' => 'boost_crawler',
       'type' => 'module',
       'owner' => '',
@@ -1078,7 +1078,7 @@ $options['packages'] = array (
     ),
     'cdn' => 
     array (
-      'filename' => '/data/all/020/o_contrib_seven/cdn/cdn.module',
+      'filename' => '/data/all/021/o_contrib_seven/cdn/cdn.module',
       'name' => 'cdn',
       'type' => 'module',
       'owner' => '',
@@ -1110,7 +1110,7 @@ $options['packages'] = array (
     ),
     'config_perms' => 
     array (
-      'filename' => '/data/all/020/o_contrib_seven/config_perms/config_perms.module',
+      'filename' => '/data/all/021/o_contrib_seven/config_perms/config_perms.module',
       'name' => 'config_perms',
       'type' => 'module',
       'owner' => '',
@@ -1121,29 +1121,25 @@ $options['packages'] = array (
       'info' => 
       array (
         'name' => 'Custom Permissions',
-        'description' => 'Allows additional permissions to be created and managed through a administration form.',
+        'description' => 'Allows additional permissions to be created and managed through an administration form.
+<br /><small>Machine name: config_perms</small>',
         'core' => '7.x',
         'package' => 'Permissions',
-        'files' => 
-        array (
-          0 => 'config_perms.admin.inc',
-          1 => 'config_perms.install',
-          2 => 'config_perms.module',
-        ),
-        'version' => '7.x-2.0+4-dev',
+        'configure' => 'admin/people/custom_permissions',
+        'version' => '7.x-2.0+33-dev',
         'project' => 'config_perms',
-        'datestamp' => '1380566688',
+        'datestamp' => '1412099050',
         'dependencies' => 
         array (
         ),
         'php' => '5.2.4',
       ),
       'project' => 'config_perms',
-      'version' => '7.x-2.0+4-dev',
+      'version' => '7.x-2.0+33-dev',
     ),
     'css_emimage' => 
     array (
-      'filename' => '/data/all/020/o_contrib_seven/css_emimage/css_emimage.module',
+      'filename' => '/data/all/021/o_contrib_seven/css_emimage/css_emimage.module',
       'name' => 'css_emimage',
       'type' => 'module',
       'owner' => '',
@@ -1171,7 +1167,7 @@ $options['packages'] = array (
     ),
     'display_cache' => 
     array (
-      'filename' => '/data/all/020/o_contrib_seven/display_cache/display_cache.module',
+      'filename' => '/data/all/021/o_contrib_seven/display_cache/display_cache.module',
       'name' => 'display_cache',
       'type' => 'module',
       'owner' => '',
@@ -1199,7 +1195,7 @@ $options['packages'] = array (
     ),
     'esi' => 
     array (
-      'filename' => '/data/all/020/o_contrib_seven/esi/esi.module',
+      'filename' => '/data/all/021/o_contrib_seven/esi/esi.module',
       'name' => 'esi',
       'type' => 'module',
       'owner' => '',
@@ -1230,7 +1226,7 @@ $options['packages'] = array (
     ),
     'esi_block' => 
     array (
-      'filename' => '/data/all/020/o_contrib_seven/esi/modules/esi_block/esi_block.module',
+      'filename' => '/data/all/021/o_contrib_seven/esi/modules/esi_block/esi_block.module',
       'name' => 'esi_block',
       'type' => 'module',
       'owner' => '',
@@ -1263,7 +1259,7 @@ $options['packages'] = array (
     ),
     'esi_context' => 
     array (
-      'filename' => '/data/all/020/o_contrib_seven/esi/modules/esi_context/esi_context.module',
+      'filename' => '/data/all/021/o_contrib_seven/esi/modules/esi_context/esi_context.module',
       'name' => 'esi_context',
       'type' => 'module',
       'owner' => '',
@@ -1293,7 +1289,7 @@ $options['packages'] = array (
     ),
     'esi_panels' => 
     array (
-      'filename' => '/data/all/020/o_contrib_seven/esi/modules/esi_panels/esi_panels.module',
+      'filename' => '/data/all/021/o_contrib_seven/esi/modules/esi_panels/esi_panels.module',
       'name' => 'esi_panels',
       'type' => 'module',
       'owner' => '',
@@ -1323,7 +1319,7 @@ $options['packages'] = array (
     ),
     'expire' => 
     array (
-      'filename' => '/data/all/020/o_contrib_seven/expire/expire.module',
+      'filename' => '/data/all/021/o_contrib_seven/expire/expire.module',
       'name' => 'expire',
       'type' => 'module',
       'owner' => '',
@@ -1350,24 +1346,24 @@ $options['packages'] = array (
           7 => 'includes/expire.votingapi.inc',
           8 => 'includes/expire.file.inc',
         ),
-        'version' => '7.x-2.0-rc3',
+        'version' => '7.x-2.0-rc4',
         'project' => 'expire',
-        'datestamp' => '1398612528',
+        'datestamp' => '1414746830',
         'dependencies' => 
         array (
         ),
         'php' => '5.2.4',
       ),
       'project' => 'expire',
-      'version' => '7.x-2.0-rc3',
+      'version' => '7.x-2.0-rc4',
     ),
     'filefield_nginx_progress' => 
     array (
-      'filename' => '/data/all/020/o_contrib_seven/filefield_nginx_progress/filefield_nginx_progress.module',
+      'filename' => '/data/all/021/o_contrib_seven/filefield_nginx_progress/filefield_nginx_progress.module',
       'name' => 'filefield_nginx_progress',
       'type' => 'module',
       'owner' => '',
-      'status' => '1',
+      'status' => '0',
       'bootstrap' => '0',
       'schema_version' => '7100',
       'weight' => '20',
@@ -1396,7 +1392,7 @@ $options['packages'] = array (
     ),
     'flood_control' => 
     array (
-      'filename' => '/data/all/020/o_contrib_seven/flood_control/flood_control.module',
+      'filename' => '/data/all/021/o_contrib_seven/flood_control/flood_control.module',
       'name' => 'flood_control',
       'type' => 'module',
       'owner' => '',
@@ -1423,7 +1419,7 @@ $options['packages'] = array (
     ),
     'force_password_change' => 
     array (
-      'filename' => '/data/all/020/o_contrib_seven/force_password_change/force_password_change.module',
+      'filename' => '/data/all/021/o_contrib_seven/force_password_change/force_password_change.module',
       'name' => 'force_password_change',
       'type' => 'module',
       'owner' => '',
@@ -1455,7 +1451,7 @@ $options['packages'] = array (
     ),
     'fpa' => 
     array (
-      'filename' => '/data/all/020/o_contrib_seven/fpa/fpa.module',
+      'filename' => '/data/all/021/o_contrib_seven/fpa/fpa.module',
       'name' => 'fpa',
       'type' => 'module',
       'owner' => '',
@@ -1482,7 +1478,7 @@ $options['packages'] = array (
     ),
     'httprl' => 
     array (
-      'filename' => '/data/all/020/o_contrib_seven/httprl/httprl.module',
+      'filename' => '/data/all/021/o_contrib_seven/httprl/httprl.module',
       'name' => 'httprl',
       'type' => 'module',
       'owner' => '',
@@ -1509,7 +1505,7 @@ $options['packages'] = array (
     ),
     'js' => 
     array (
-      'filename' => '/data/all/020/o_contrib_seven/js/js.module',
+      'filename' => '/data/all/021/o_contrib_seven/js/js.module',
       'name' => 'js',
       'type' => 'module',
       'owner' => '',
@@ -1537,7 +1533,7 @@ $options['packages'] = array (
     ),
     'js_test' => 
     array (
-      'filename' => '/data/all/020/o_contrib_seven/js/tests/js_test.module',
+      'filename' => '/data/all/021/o_contrib_seven/js/tests/js_test.module',
       'name' => 'js_test',
       'type' => 'module',
       'owner' => '',
@@ -1568,7 +1564,7 @@ $options['packages'] = array (
     ),
     'login_security' => 
     array (
-      'filename' => '/data/all/020/o_contrib_seven/login_security/login_security.module',
+      'filename' => '/data/all/021/o_contrib_seven/login_security/login_security.module',
       'name' => 'login_security',
       'type' => 'module',
       'owner' => '',
@@ -1599,7 +1595,7 @@ $options['packages'] = array (
     ),
     'nocurrent_pass' => 
     array (
-      'filename' => '/data/all/020/o_contrib_seven/nocurrent_pass/nocurrent_pass.module',
+      'filename' => '/data/all/021/o_contrib_seven/nocurrent_pass/nocurrent_pass.module',
       'name' => 'nocurrent_pass',
       'type' => 'module',
       'owner' => '',
@@ -1626,7 +1622,7 @@ $options['packages'] = array (
     ),
     'panels_content_cache' => 
     array (
-      'filename' => '/data/all/020/o_contrib_seven/panels_content_cache/panels_content_cache.module',
+      'filename' => '/data/all/021/o_contrib_seven/panels_content_cache/panels_content_cache.module',
       'name' => 'panels_content_cache',
       'type' => 'module',
       'owner' => '',
@@ -1654,7 +1650,7 @@ $options['packages'] = array (
     ),
     'print' => 
     array (
-      'filename' => '/data/all/020/o_contrib_seven/print/print.module',
+      'filename' => '/data/all/021/o_contrib_seven/print/print.module',
       'name' => 'print',
       'type' => 'module',
       'owner' => '',
@@ -1685,7 +1681,7 @@ $options['packages'] = array (
     ),
     'print_epub_phpepub' => 
     array (
-      'filename' => '/data/all/020/o_contrib_seven/print/print_epub/lib_handlers/print_epub_phpepub/print_epub_phpepub.module',
+      'filename' => '/data/all/021/o_contrib_seven/print/print_epub/lib_handlers/print_epub_phpepub/print_epub_phpepub.module',
       'name' => 'print_epub_phpepub',
       'type' => 'module',
       'owner' => '',
@@ -1711,7 +1707,7 @@ $options['packages'] = array (
     ),
     'print_epub' => 
     array (
-      'filename' => '/data/all/020/o_contrib_seven/print/print_epub/print_epub.module',
+      'filename' => '/data/all/021/o_contrib_seven/print/print_epub/print_epub.module',
       'name' => 'print_epub',
       'type' => 'module',
       'owner' => '',
@@ -1738,7 +1734,7 @@ $options['packages'] = array (
     ),
     'print_mail' => 
     array (
-      'filename' => '/data/all/020/o_contrib_seven/print/print_mail/print_mail.module',
+      'filename' => '/data/all/021/o_contrib_seven/print/print_mail/print_mail.module',
       'name' => 'print_mail',
       'type' => 'module',
       'owner' => '',
@@ -1765,7 +1761,7 @@ $options['packages'] = array (
     ),
     'print_pdf_dompdf' => 
     array (
-      'filename' => '/data/all/020/o_contrib_seven/print/print_pdf/lib_handlers/print_pdf_dompdf/print_pdf_dompdf.module',
+      'filename' => '/data/all/021/o_contrib_seven/print/print_pdf/lib_handlers/print_pdf_dompdf/print_pdf_dompdf.module',
       'name' => 'print_pdf_dompdf',
       'type' => 'module',
       'owner' => '',
@@ -1792,7 +1788,7 @@ $options['packages'] = array (
     ),
     'print_pdf_mpdf' => 
     array (
-      'filename' => '/data/all/020/o_contrib_seven/print/print_pdf/lib_handlers/print_pdf_mpdf/print_pdf_mpdf.module',
+      'filename' => '/data/all/021/o_contrib_seven/print/print_pdf/lib_handlers/print_pdf_mpdf/print_pdf_mpdf.module',
       'name' => 'print_pdf_mpdf',
       'type' => 'module',
       'owner' => '',
@@ -1818,7 +1814,7 @@ $options['packages'] = array (
     ),
     'print_pdf_tcpdf' => 
     array (
-      'filename' => '/data/all/020/o_contrib_seven/print/print_pdf/lib_handlers/print_pdf_tcpdf/print_pdf_tcpdf.module',
+      'filename' => '/data/all/021/o_contrib_seven/print/print_pdf/lib_handlers/print_pdf_tcpdf/print_pdf_tcpdf.module',
       'name' => 'print_pdf_tcpdf',
       'type' => 'module',
       'owner' => '',
@@ -1849,7 +1845,7 @@ $options['packages'] = array (
     ),
     'print_pdf_wkhtmltopdf' => 
     array (
-      'filename' => '/data/all/020/o_contrib_seven/print/print_pdf/lib_handlers/print_pdf_wkhtmltopdf/print_pdf_wkhtmltopdf.module',
+      'filename' => '/data/all/021/o_contrib_seven/print/print_pdf/lib_handlers/print_pdf_wkhtmltopdf/print_pdf_wkhtmltopdf.module',
       'name' => 'print_pdf_wkhtmltopdf',
       'type' => 'module',
       'owner' => '',
@@ -1876,7 +1872,7 @@ $options['packages'] = array (
     ),
     'print_pdf' => 
     array (
-      'filename' => '/data/all/020/o_contrib_seven/print/print_pdf/print_pdf.module',
+      'filename' => '/data/all/021/o_contrib_seven/print/print_pdf/print_pdf.module',
       'name' => 'print_pdf',
       'type' => 'module',
       'owner' => '',
@@ -1903,7 +1899,7 @@ $options['packages'] = array (
     ),
     'print_ui' => 
     array (
-      'filename' => '/data/all/020/o_contrib_seven/print/print_ui/print_ui.module',
+      'filename' => '/data/all/021/o_contrib_seven/print/print_ui/print_ui.module',
       'name' => 'print_ui',
       'type' => 'module',
       'owner' => '',
@@ -1930,7 +1926,7 @@ $options['packages'] = array (
     ),
     'purge' => 
     array (
-      'filename' => '/data/all/020/o_contrib_seven/purge/purge.module',
+      'filename' => '/data/all/021/o_contrib_seven/purge/purge.module',
       'name' => 'purge',
       'type' => 'module',
       'owner' => '',
@@ -1964,7 +1960,7 @@ $options['packages'] = array (
     ),
     'readonlymode' => 
     array (
-      'filename' => '/data/all/020/o_contrib_seven/readonlymode/readonlymode.module',
+      'filename' => '/data/all/021/o_contrib_seven/readonlymode/readonlymode.module',
       'name' => 'readonlymode',
       'type' => 'module',
       'owner' => '',
@@ -1996,7 +1992,7 @@ $options['packages'] = array (
     ),
     'reroute_email' => 
     array (
-      'filename' => '/data/all/020/o_contrib_seven/reroute_email/reroute_email.module',
+      'filename' => '/data/all/021/o_contrib_seven/reroute_email/reroute_email.module',
       'name' => 'reroute_email',
       'type' => 'module',
       'owner' => '',
@@ -2015,20 +2011,20 @@ $options['packages'] = array (
           0 => 'reroute_email.test',
         ),
         'configure' => 'admin/config/development/reroute_email',
-        'version' => '7.x-1.1+29-dev',
+        'version' => '7.x-1.2',
         'project' => 'reroute_email',
-        'datestamp' => '1408005529',
+        'datestamp' => '1414831432',
         'dependencies' => 
         array (
         ),
         'php' => '5.2.4',
       ),
       'project' => 'reroute_email',
-      'version' => '7.x-1.1+29-dev',
+      'version' => '7.x-1.2',
     ),
     'robotstxt' => 
     array (
-      'filename' => '/data/all/020/o_contrib_seven/robotstxt/robotstxt.module',
+      'filename' => '/data/all/021/o_contrib_seven/robotstxt/robotstxt.module',
       'name' => 'robotstxt',
       'type' => 'module',
       'owner' => '',
@@ -2061,7 +2057,7 @@ $options['packages'] = array (
     ),
     'securesite' => 
     array (
-      'filename' => '/data/all/020/o_contrib_seven/securesite/securesite.module',
+      'filename' => '/data/all/021/o_contrib_seven/securesite/securesite.module',
       'name' => 'securesite',
       'type' => 'module',
       'owner' => '',
@@ -2093,7 +2089,7 @@ $options['packages'] = array (
     ),
     'session_expire' => 
     array (
-      'filename' => '/data/all/020/o_contrib_seven/session_expire/session_expire.module',
+      'filename' => '/data/all/021/o_contrib_seven/session_expire/session_expire.module',
       'name' => 'session_expire',
       'type' => 'module',
       'owner' => '',
@@ -2122,7 +2118,7 @@ $options['packages'] = array (
     ),
     'site_verify' => 
     array (
-      'filename' => '/data/all/020/o_contrib_seven/site_verify/site_verify.module',
+      'filename' => '/data/all/021/o_contrib_seven/site_verify/site_verify.module',
       'name' => 'site_verify',
       'type' => 'module',
       'owner' => '',
@@ -2156,7 +2152,7 @@ $options['packages'] = array (
     ),
     'speedy' => 
     array (
-      'filename' => '/data/all/020/o_contrib_seven/speedy/speedy.module',
+      'filename' => '/data/all/021/o_contrib_seven/speedy/speedy.module',
       'name' => 'speedy',
       'type' => 'module',
       'owner' => '',
@@ -2170,20 +2166,20 @@ $options['packages'] = array (
         'description' => 'Tools to improve the front end performance of your site.',
         'core' => '7.x',
         'configure' => 'admin/config/development/performance',
-        'version' => '7.x-1.12',
+        'version' => '7.x-1.15',
         'project' => 'speedy',
-        'datestamp' => '1407423547',
+        'datestamp' => '1416498504',
         'dependencies' => 
         array (
         ),
         'php' => '5.2.4',
       ),
       'project' => 'speedy',
-      'version' => '7.x-1.12',
+      'version' => '7.x-1.15',
     ),
     'taxonomy_edge' => 
     array (
-      'filename' => '/data/all/020/o_contrib_seven/taxonomy_edge/taxonomy_edge.module',
+      'filename' => '/data/all/021/o_contrib_seven/taxonomy_edge/taxonomy_edge.module',
       'name' => 'taxonomy_edge',
       'type' => 'module',
       'owner' => '',
@@ -2217,7 +2213,7 @@ $options['packages'] = array (
     ),
     'views_taxonomy_edge' => 
     array (
-      'filename' => '/data/all/020/o_contrib_seven/taxonomy_edge/views_taxonomy_edge/views_taxonomy_edge.module',
+      'filename' => '/data/all/021/o_contrib_seven/taxonomy_edge/views_taxonomy_edge/views_taxonomy_edge.module',
       'name' => 'views_taxonomy_edge',
       'type' => 'module',
       'owner' => '',
@@ -2254,7 +2250,7 @@ $options['packages'] = array (
     ),
     'textile' => 
     array (
-      'filename' => '/data/all/020/o_contrib_seven/textile/textile.module',
+      'filename' => '/data/all/021/o_contrib_seven/textile/textile.module',
       'name' => 'textile',
       'type' => 'module',
       'owner' => '',
@@ -2282,7 +2278,7 @@ $options['packages'] = array (
     ),
     'variable_clean' => 
     array (
-      'filename' => '/data/all/020/o_contrib_seven/variable_clean/variable_clean.module',
+      'filename' => '/data/all/021/o_contrib_seven/variable_clean/variable_clean.module',
       'name' => 'variable_clean',
       'type' => 'module',
       'owner' => '',
@@ -2313,7 +2309,7 @@ $options['packages'] = array (
     ),
     'vars' => 
     array (
-      'filename' => '/data/all/020/o_contrib_seven/vars/vars.module',
+      'filename' => '/data/all/021/o_contrib_seven/vars/vars.module',
       'name' => 'vars',
       'type' => 'module',
       'owner' => '',
@@ -2344,7 +2340,7 @@ $options['packages'] = array (
     ),
     'views404' => 
     array (
-      'filename' => '/data/all/020/o_contrib_seven/views404/views404.module',
+      'filename' => '/data/all/021/o_contrib_seven/views404/views404.module',
       'name' => 'views404',
       'type' => 'module',
       'owner' => '',
@@ -2372,7 +2368,7 @@ $options['packages'] = array (
     ),
     'views_accelerator' => 
     array (
-      'filename' => '/data/all/020/o_contrib_seven/views_accelerator/views_accelerator.module',
+      'filename' => '/data/all/021/o_contrib_seven/views_accelerator/views_accelerator.module',
       'name' => 'views_accelerator',
       'type' => 'module',
       'owner' => '',
@@ -2953,7 +2949,7 @@ $options['packages'] = array (
       'name' => 'update',
       'type' => 'module',
       'owner' => '',
-      'status' => '1',
+      'status' => '0',
       'bootstrap' => '0',
       'schema_version' => '7001',
       'weight' => '0',
@@ -3659,6 +3655,34 @@ $options['packages'] = array (
       ),
       'project' => 'blockreference',
       'version' => '7.x-1.9',
+    ),
+    'ckeditor' => 
+    array (
+      'filename' => '/data/disk/a4289963153/static/platforms/apnc/sites/all/modules/contrib/ckeditor/ckeditor.module',
+      'name' => 'ckeditor',
+      'type' => 'module',
+      'owner' => '',
+      'status' => '1',
+      'bootstrap' => '0',
+      'schema_version' => '7005',
+      'weight' => '0',
+      'info' => 
+      array (
+        'name' => 'CKEditor',
+        'description' => 'Enables CKEditor (WYSIWYG HTML editor) for use instead of plain text fields.',
+        'core' => '7.x',
+        'package' => 'User interface',
+        'configure' => 'admin/config/content/ckeditor',
+        'version' => '7.x-1.16',
+        'project' => 'ckeditor',
+        'datestamp' => '1413311935',
+        'dependencies' => 
+        array (
+        ),
+        'php' => '5.2.4',
+      ),
+      'project' => 'ckeditor',
+      'version' => '7.x-1.16',
     ),
     'conditional_fields' => 
     array (
@@ -5633,7 +5657,7 @@ $options['packages'] = array (
       'name' => 'wysiwyg',
       'type' => 'module',
       'owner' => '',
-      'status' => '1',
+      'status' => '0',
       'bootstrap' => '0',
       'schema_version' => '7200',
       'weight' => '0',

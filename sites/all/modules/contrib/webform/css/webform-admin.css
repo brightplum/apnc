@@ -2,6 +2,8 @@
  * @file
  * Styles that are used when viewing results or modifying webform settings.
  */
+
+/* Submission view page */
 .webform-submission-info {
   padding: 10px;
 }
@@ -21,6 +23,41 @@
 .webform-submission-next {
   margin-left: 20px;
 }
+
+/* Analysis pages */
+.webform-analysis-component {
+  width: 33.33%;
+  margin: 0 -2px;
+  padding: 0;
+  display: inline-block;
+  vertical-align: top;
+}
+@media all and (max-width: 1024px) {
+  .webform-analysis-component {
+    width: 50%;
+  }
+}
+@media all and (max-width: 600px) {
+  .webform-analysis-component {
+    width: 100%;
+  }
+}
+.webform-analysis-component-grid {
+  width: 100%;
+  clear: both;
+}
+.webform-analysis-component-inner {
+  padding: 12px;
+  overflow: auto;
+}
+.webform-analysis-component table {
+  width: 100%;
+}
+.webform-analysis-component table td {
+  white-space: normal;
+}
+
+/* Element for selecting components, i.e. included components for e-mails. */
 .webform-component-select-wrapper {
   max-height: 300px;
   overflow: auto;
@@ -56,6 +93,8 @@ tr.webform-pagebreak td {
 td.webform-pagebreak {
   font-weight: bold;
 }
+
+/* Special theming for the options element widget (if installed) */
 .webform-options-element thead {
   display: none;
 }
@@ -68,6 +107,23 @@ td.webform-pagebreak {
 .webform-options-element fieldset legend {
   display: none;
 }
+
+/* Checkboxes for allowed file extensions */
+table.webform-file-extensions td {
+  vertical-align: top;
+}
+table.webform-file-extensions td .description {
+  white-space: normal;
+}
+table.webform-file-extensions .form-type-checkbox {
+  width: 5em;
+  float: left;
+}
+table.webform-file-extensions input.form-text {
+  width: 95%;
+}
+
+/* General styles */
 .webform-checkbox {
   text-align: center;
   width: 40px;
@@ -76,12 +132,11 @@ td.webform-pagebreak {
 .webform-container-inline div.form-item {
   display: inline;
 }
-.webform-default-value {
-  color: #999;
-}
 .webform-results-per-page a.selected {
   font-weight: bold;
 }
+
+/* Display of adding/editing components */
 html.js fieldset.webform-position,
 html.js div.webform-position {
   display: none;
@@ -91,4 +146,79 @@ tr.webform-add-form .tabledrag-changed {
 }
 #webform-components tr.webform-add-form {
   background-color: inherit;
+}
+
+/* E-mail configuration */
+html.js .webform-email-mapping {
+  display: none;
+}
+td.webform-email-option {
+  text-align: right;
+}
+
+/* Conditionals */
+.webform-conditional,
+.webform-conditional-new {
+  display: block;
+  position: relative;
+  padding-left: 1em;
+  padding-right: 8em;
+  margin-left: 3em;
+  max-width: 500px;
+}
+
+.webform-conditional-new {
+  text-align: right;
+  margin-left: 8em;
+}
+
+.webform-conditional-if {
+  position: absolute;
+  left: -.5em;
+  margin-top: .2em;
+}
+
+.webform-conditional-rule {
+  margin: .5em 0;
+}
+
+.webform-conditional-condition {
+  display: inline;
+}
+
+.webform-conditional-operations {
+  position: absolute;
+  right: 0;
+  margin-top: .2em;
+}
+
+.webform-conditional-new input.form-submit,
+.webform-conditional-operations input.form-submit {
+  margin: 0 2px;
+  padding: 2px 6px;
+}
+
+#webform-conditionals-table input.progress-disabled,
+.webform-conditional-operations input.progress-disabled {
+  float: none;
+}
+
+#webform-conditionals-table .ahah-progress-throbber {
+  float: none;
+  display: inline;
+}
+
+#webform-conditionals-table .ahah-progress-throbber .throbber {
+  float: none;
+  display: inline;
+  padding-right: 12px;
+}
+
+.webform-conditional-andor {
+  display: inline;
+}
+
+.webform-conditional-andor .form-item {
+  margin: 0;
+  padding: 0;
 }

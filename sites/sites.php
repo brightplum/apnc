@@ -39,5 +39,11 @@
  * signs to enable.
  */
 $sites = array (
+  'communitiesunited.com' => 'apncorganizing.org',
+  'communitiesunited.net' => 'apncorganizing.org',
+  'communitiesunited.org' => 'apncorganizing.org',
   'www.apncorganizing.org' => 'apncorganizing.org',
+  'www.communitiesunited.com' => 'apncorganizing.org',
+  'www.communitiesunited.net' => 'apncorganizing.org',
+  'www.communitiesunited.org' => 'apncorganizing.org',
 );

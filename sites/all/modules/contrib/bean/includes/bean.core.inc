@@ -8,7 +8,7 @@
 /**
  * Interface for Plugin Classes
  */
-interface bean_type_plugin_interface {
+interface BeanTypePluginInterface {
 
   /**
    * Constructor
@@ -16,6 +16,7 @@ interface bean_type_plugin_interface {
    * Plugin info should be called using bean_fetch_plugin_info().
    *
    * @abstract
+   *
    * @param  $plugin_info array of information from the ctools plugin.
    */
   public function __construct($plugin_info);
@@ -27,6 +28,7 @@ interface bean_type_plugin_interface {
    * otherwise the entire plugin will be returned
    *
    * @abstract
+   *
    * @param  $key
    * @return array of plugin info for value froma key
    */
@@ -36,6 +38,7 @@ interface bean_type_plugin_interface {
    * Build the URL string for the plugin
    *
    * @abstract
+   *
    * @return url
    */
   public function buildURL();
@@ -44,14 +47,26 @@ interface bean_type_plugin_interface {
    * Get the label name of the plugin
    *
    * @abstract
+   *
    * @return label of the type
    */
   public function getLabel();
 
   /**
+   * Get the description of the plugin
+   *
+   * @abstract
+   *
+   * @return
+   *  description of the type
+   */
+  public function getDescription();
+
+  /**
    * Set the Bean object for later use
    *
    * @abstract
+   *
    * @param Bean $bean
    */
   public function setBean($bean);
@@ -60,6 +75,7 @@ interface bean_type_plugin_interface {
    * Is this type editable?
    *
    * @abstract
+   *
    * @return boolean
    */
   public function isEditable();
@@ -77,7 +93,8 @@ interface bean_type_plugin_interface {
    * @param $bean
    * @param $form
    * @param $form_state
-   * @return form array
+   * @return array
+   *  form array
    */
   public function form($bean, $form, &$form_state);
 
@@ -85,23 +102,36 @@ interface bean_type_plugin_interface {
    * Validate function for bean type form
    *
    * @abstract
+   *
    * @param  $values
    * @param $form_state
    */
   public function validate($values, &$form_state);
 
   /**
+   * React to a bean being saved
+   *
+   * @abstract
+   *
+   * @param Bean $bean
+   */
+  public function submit(Bean $bean);
+
+  /**
    * Return the block content.
    *
    * @abstract
    *
-   * @param $bean
+   * @param        $bean
    *   The bean object being viewed.
-   * @param $content
+   * @param        $content
    *   The default content array created by Entity API.  This will include any
    *   fields attached to the entity.
-   * @param $view_mode
+   * @param string $view_mode
    *   The view mode passed into $entity->view().
+   *
+   * @param null   $langcode
+   *
    * @return
    *   Return a renderable content array.
    */
@@ -113,30 +143,40 @@ interface bean_type_plugin_interface {
  */
 class Bean extends Entity {
   public $label;
+  public $description;
   public $title;
   public $type;
   public $data;
   public $delta;
   public $view_mode;
+  public $bid;
+  public $vid;
+  public $created;
+  public $changed;
+  public $log;
+  public $uid;
+  public $default_revision;
+  public $revisions = array();
   protected $plugin;
 
   /**
    * Get Plugin info
+   *
+   * @param $key
+   *  The plugin key to get the info for.
+   *
+   * @return array|null
    */
   public function getInfo($key = NULL) {
-    if ($this->plugin instanceof bean_type_plugin_interface) {
+    if ($this->plugin instanceof BeanTypePluginInterface) {
       return $this->plugin->getInfo($key);
     }
 
     return NULL;
   }
 
-  public function defaultLabel() {
-    return $this->label;
-  }
-
   public function __construct(array $values = array()) {
-    // If this is new then set the type first
+    // If this is new then set the type first.
     if (isset($values['is_new'])) {
       $this->type = isset($values['type']) ? $values['type'] : '';
     }
@@ -144,24 +184,35 @@ class Bean extends Entity {
     parent::__construct($values, 'bean');
   }
 
+  public function adminTitle() {
+    return check_plain($this->label);
+  }
+
   protected function setUp() {
     parent::setUp();
-    
+
     if (!empty($this->type)) {
       $plugin = bean_load_plugin_class($this->type);
       $this->loadUp($plugin);
     }
+    return $this;
   }
 
   /**
    * This is a work around for version of PDO that call __construct() before
    * it loads up the object with values from the DB.
    */
-  public function loadUp(bean_type_plugin_interface $plugin) {
+  public function loadUp($plugin) {
     if (empty($this->plugin)) {
-      $this->setPlugin($plugin);
-      $this->setFields();
+      // If the plugin has been disabled, the $plugin will be a boolean.
+      // just load the base plugin so something will render.
+      if (!($plugin instanceof BeanTypePluginInterface)) {
+        $plugin = bean_load_plugin_class('bean_default');
+      }
+
+      $this->setPlugin($plugin)->setFields();
     }
+    return $this;
   }
 
   /**
@@ -170,6 +221,8 @@ class Bean extends Entity {
    */
   protected  function setPlugin($plugin) {
     $this->plugin = $plugin;
+
+    return $this;
   }
 
   /**
@@ -184,6 +237,7 @@ class Bean extends Entity {
         $this->$field = isset($values[$field]) ? $values[$field] : $default;
       }
     }
+    return $this;
   }
 
   /**
@@ -191,7 +245,30 @@ class Bean extends Entity {
    * 'entity_class_uri' as 'uri callback' hook_entity_info().
    */
   protected function defaultUri() {
-    return array('path' => 'block/' . $this->identifier());
+    return array('path' => 'block/' . strtolower($this->identifier()));
+  }
+
+  /**
+  * Get the default label
+  *
+  * @return string
+  */
+  protected function defaultLabel() {
+    if (empty($this->title)) {
+      return $this->label;
+    }
+
+    return $this->title;
+  }
+
+  /**
+   * Set the revision as default
+   *
+   * @return Bean
+   */
+  public function setDefault() {
+    $this->default_revision = TRUE;
+    return $this;
   }
 
   /**
@@ -260,6 +337,8 @@ class Bean extends Entity {
     foreach ($this->plugin->values() as $field => $value) {
       $this->data[$field] = $values[$field];
     }
+
+    return $this;
   }
 
   /**
@@ -269,7 +348,9 @@ class Bean extends Entity {
    */
   public function view($view_mode = 'default', $langcode = NULL, $page = NULL) {
     $content = parent::view($view_mode, $langcode);
-
+    if (empty($this->plugin)) {
+      return $content;
+    }
     return $this->plugin->view($this, $content, $view_mode, $langcode);
   }
 
@@ -277,14 +358,60 @@ class Bean extends Entity {
    * Override the save to add clearing of caches
    */
   public function save() {
-    // Set the delta if it's not set already
+    $this->setUid()->checkDelta();
+
+    if (empty($this->created)) {
+      $this->created = REQUEST_TIME;
+    }
+
+    $this->changed = REQUEST_TIME;
+
+    $this->plugin->submit($this);
+
+    $return = parent::save();
+    bean_reset(TRUE, TRUE);
+
+    if (module_exists('block')) {
+      bean_cache_clear_block($this);
+    }
+
+    return $return;
+  }
+
+  /**
+   * Get the user
+   */
+  protected function setUid() {
+    global $user;
+
+    $this->uid = empty($this->uid) ? $user->uid : $this->uid;
+
+    return $this;
+  }
+
+  /**
+   * Set the delta function
+   */
+  protected  function checkDelta() {
     if (empty($this->delta)) {
       $max_length = 32;
-      // Base it on the label and make sure it isn't too long for the database
-      $this->delta = drupal_clean_css_identifier(strtolower($this->label));
-      $this->delta = substr($this->delta, 0, $max_length);
 
-      // Check if delta is unique
+      // Base it on the label and make sure it isn't too long for the database.
+      if (module_exists('transliteration')) {
+        $delta = drupal_clean_css_identifier(strtolower(transliteration_get($this->label)));
+      }
+      else {
+        $delta = drupal_clean_css_identifier(strtolower($this->label));;
+      }
+
+      // Add 'bean-' prefix when it's need to avoid a purely numeric delta.
+      if (is_numeric($delta)) {
+        $delta = 'bean-' . $delta;
+      }
+
+      $this->delta = substr($delta, 0, $max_length);
+
+      // Check if delta is unique.
       if (bean_load_delta($this->delta)) {
         $i = 0;
         $separator = '-';
@@ -295,42 +422,24 @@ class Bean extends Entity {
         } while (bean_load_delta($this->delta));
       }
     }
-    
-    $return = parent::save();
-    block_flush_caches();
-    return $return;
+
+    return $this;
   }
 
   /**
-   * Override the delete to remove the fields and blocks
+   * Load the revisions from the DB
    */
-  public function delete() {
-    if ($this->internalIdentifier()) {
-      // Delete the field values
-      field_attach_delete('bean', $this);
+  public function loadRevisions() {
+    $this->revisions = db_select('bean_revision', 'br')
+                        ->condition('delta', $this->identifier())
+                        ->fields('br')
+                        ->execute();
 
-      // Delete any blocks
-      // @see block_custom_block_delete_submit()
-      db_delete('block')
-        ->condition('module', 'bean')
-        ->condition('delta', $this->identifier())
-        ->execute();
-      db_delete('block_role')
-        ->condition('module', 'bean')
-        ->condition('delta', $this->identifier())
-        ->execute();
-
-      // @see node_form_block_custom_block_delete_submit()
-      db_delete('block_node_type')
-        ->condition('module', 'bean')
-        ->condition('delta', $this->identifier())
-        ->execute();
-      entity_get_controller($this->entityType)->delete(array($this->internalIdentifier())); 
-    }
+    return $this;
   }
 }
 
-class BeanEntityAPIController extends EntityAPIController {
+class BeanEntityAPIController extends EntityAPIControllerExportable {
   protected function setPlugin(Bean $bean) {
     static $plugins = array();
 
@@ -340,103 +449,77 @@ class BeanEntityAPIController extends EntityAPIController {
     }
   }
 
+  protected function attachLoad(&$queried_entities, $revision_id = FALSE) {
+    foreach ($queried_entities as $entity) {
+      $this->setPlugin($entity);
+    }
+    parent::attachLoad($queried_entities, $revision_id);
+  }
+
+  public function delete($ids, DatabaseTransaction $transaction = NULL) {
+    $beans = $ids ? $this->load($ids) : array();
+
+    $deltas = array();
+    foreach ($beans as $bean) {
+      if ($bean->internalIdentifier()) {
+        field_attach_delete('bean', $bean);
+
+        $deltas[] = $bean->identifier();
+      }
+    }
+
+    if (!empty($deltas)) {
+      try {
+        // @see block_custom_block_delete_submit()
+        if (module_exists('block')) {
+          db_delete('block')
+            ->condition('module', 'bean')
+            ->condition('delta', $deltas)
+            ->execute();
+          db_delete('block_role')
+            ->condition('module', 'bean')
+            ->condition('delta', $deltas)
+            ->execute();
+
+          // @see node_form_block_custom_block_delete_submit()
+          db_delete('block_node_type')
+            ->condition('module', 'bean')
+            ->condition('delta', $deltas)
+            ->execute();
+        }
+      }
+      catch (Exception $e) {
+        if (isset($transaction)) {
+          $transaction->rollback();
+        }
+        watchdog_exception('bean', $e);
+        throw $e;
+      }
+    }
+    parent::delete($ids, $transaction);
+  }
+
   /**
-   * Overridden.
-   * @see EntityAPIController#load($ids, $conditions)
-   *
-   * We need to load the plugin and set the defaults before
-   * anything else is donw to the record
+   * Overridden to add Rules integration back in.
    */
-  public function load($ids = array(), $conditions = array()) {
-    $entities = array();
+  public function invoke($hook, $entity) {
+    parent::invoke($hook, $entity);
 
-    // Revisions are not statically cached, and require a different query to
-    // other conditions, so separate the revision id into its own variable.
-    if ($this->revisionKey && isset($conditions[$this->revisionKey])) {
-      $revision_id = $conditions[$this->revisionKey];
-      unset($conditions[$this->revisionKey]);
+    // Invoke rules.
+    if (module_exists('rules')) {
+      rules_invoke_event($this->entityType . '_' . $hook, $entity);
     }
-    else {
-      $revision_id = FALSE;
-    }
+  }
 
-    // Create a new variable which is either a prepared version of the $ids
-    // array for later comparison with the entity cache, or FALSE if no $ids
-    // were passed. The $ids array is reduced as items are loaded from cache,
-    // and we need to know if it's empty for this reason to avoid querying the
-    // database when all requested entities are loaded from cache.
-    $passed_ids = !empty($ids) ? array_flip($ids) : FALSE;
+  protected function saveRevision($entity) {
+    global $user;
 
-    // Try to load entities from the static cache.
-    if ($this->cache && !$revision_id) {
-      $entities = $this->cacheGet($ids, $conditions);
-      // If any entities were loaded, remove them from the ids still to load.
-      if ($passed_ids) {
-        $ids = array_keys(array_diff_key($passed_ids, $entities));
-      }
-    }
+    $org_uid = $entity->uid;
+    $entity->uid = $user->uid;
+    $return = parent::saveRevision($entity);
+    $entity->uid = $org_uid;
 
-    // Load any remaining entities from the database. This is the case if $ids
-    // is set to FALSE (so we load all entities), if there are any ids left to
-    // load or if loading a revision.
-    if (!($this->cacheComplete && $ids === FALSE && !$conditions) && ($ids === FALSE || $ids || $revision_id)) {
-      $queried_entities = array();
-      foreach ($this->query($ids, $conditions, $revision_id) as $record) {
-        // This is what was overridden
-        $this->setPlugin($record);
-        // Skip entities already retrieved from cache.
-        if (isset($entities[$record->{$this->idKey}])) {
-          continue;
-        }
-
-        // Take care of serialized columns.
-        $schema = drupal_get_schema($this->entityInfo['base table']);
-
-        foreach ($schema['fields'] as $field => $info) {
-          if (!empty($info['serialize']) && isset($record->$field)) {
-            $record->$field = unserialize($record->$field);
-            // Support automatic merging of 'data' fields into the entity.
-            if (!empty($info['merge']) && is_array($record->$field)) {
-              foreach ($record->$field as $key => $value) {
-                $record->$key = $value;
-              }
-              unset($record->$field);
-            }
-          }
-        }
-
-        $queried_entities[$record->{$this->idKey}] = $record;
-      }
-    }
-
-    // Pass all entities loaded from the database through $this->attachLoad(),
-    // which attaches fields (if supported by the entity type) and calls the
-    // entity type specific load callback, for example hook_node_load().
-    if (!empty($queried_entities)) {
-      $this->attachLoad($queried_entities, $revision_id);
-      $entities += $queried_entities;
-    }
-
-    if ($this->cache) {
-      // Add entities to the cache if we are not loading a revision.
-      if (!empty($queried_entities) && !$revision_id) {
-        $this->cacheSet($queried_entities);
-
-        // Remember if we have cached all entities now.
-        if (!$conditions && $ids === FALSE) {
-          $this->cacheComplete = TRUE;
-        }
-      }
-    }
-    // Ensure that the returned array is ordered the same as the original
-    // $ids array if this was passed in and remove any invalid ids.
-    if ($passed_ids && $passed_ids = array_intersect_key($passed_ids, $entities)) {
-      foreach ($passed_ids as $id => $value) {
-        $passed_ids[$id] = $entities[$id];
-      }
-      $entities = $passed_ids;
-    }
-    return $entities;
+    return $return;
   }
 }
 

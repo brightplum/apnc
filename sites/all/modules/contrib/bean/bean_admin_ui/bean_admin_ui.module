@@ -5,27 +5,29 @@
  * Bean Admin UI
  */
 
+module_load_include('inc', 'bean_admin_ui', 'includes/features');
+
 /**
  * Implements hook_menu().
  */
 function bean_admin_ui_menu() {
   $items = array();
 
-  $items['admin/structure/block_types'] = array(
-    'title' => 'Block Types',
-    'description' => 'Manage Block Types',
+  $items['admin/structure/block-types'] = array(
+    'title' => 'Block types',
+    'description' => 'Manage block types, including fields, settings, etc.',
     'page callback' => 'bean_admin_ui_admin_page',
     'access arguments' => array('administer bean types'),
     'file' => 'bean_admin_ui.admin.inc',
   );
 
-  $items['admin/structure/block_types/list'] = array(
+  $items['admin/structure/block-types/list'] = array(
     'title' => 'List',
     'type' => MENU_DEFAULT_LOCAL_TASK,
     'weight' => -10,
   );
 
-  $items['admin/structure/block_types/add'] = array(
+  $items['admin/structure/block-types/add'] = array(
     'title' => 'Add block type',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('bean_admin_ui_type_form'),
@@ -34,7 +36,7 @@ function bean_admin_ui_menu() {
     'file' => 'bean_admin_ui.admin.inc',
   );
 
-  $items['admin/structure/block_types/manage/%bean_type'] = array(
+  $items['admin/structure/block-types/manage/%bean_type'] = array(
     'title' => 'Edit block type',
     'title arguments' => array(4),
     'title callback' => 'bean_admin_ui_page_title',
@@ -43,13 +45,19 @@ function bean_admin_ui_menu() {
     'access arguments' => array('administer bean types'),
     'file' => 'bean_admin_ui.admin.inc',
   );
-  $items['admin/structure/block_types/manage/%bean_type/edit'] = array(
+  $items['admin/structure/block-types/manage/%bean_type/edit'] = array(
     'title' => 'Edit',
     'type' => MENU_DEFAULT_LOCAL_TASK,
   );
-  $items['admin/structure/block_types/manage/%bean_type/delete'] = array(
+  $items['admin/structure/block-types/manage/%bean_type/delete'] = array(
     'title' => 'Delete',
-    'page arguments' => array('bean_admin_ui_type_delete_confirm', 4),
+    'page arguments' => array('bean_admin_ui_type_op_confirm', 'delete', 4),
+    'access arguments' => array('administer bean types'),
+    'file' => 'bean_admin_ui.admin.inc',
+  );
+  $items['admin/structure/block-types/manage/%bean_type/revert'] = array(
+    'title' => 'Delete',
+    'page arguments' => array('bean_admin_ui_type_op_confirm', 'revert', 4),
     'access arguments' => array('administer bean types'),
     'file' => 'bean_admin_ui.admin.inc',
   );
@@ -61,7 +69,8 @@ function bean_admin_ui_menu() {
  * Page title for block types
  */
 function bean_admin_ui_page_title($block_type) {
-  return $block_type->type;
+  $beantype = bean_fetch_plugin_info($block_type->type);
+  return check_plain($beantype['label']);
 }
 
 /**
@@ -74,18 +83,18 @@ function bean_admin_ui_bean_types_api_info() {
 }
 
 /**
- * Implements hook_bean_types()
+ * Implements hook_bean_types().
  */
 function bean_admin_ui_bean_types() {
   $plugins = array();
 
-
-  // Add in the types defined in the UI
+  // Add in the types defined in the UI.
   $bean_types = bean_admin_ui_get_types();
 
   foreach ($bean_types as $bean_type) {
     $plugins[$bean_type->name] = array(
       'label' => $bean_type->label,
+      'description' => empty($bean_type->description) ? '' : $bean_type->description,
       'type' => $bean_type->name,
       'export_status' => $bean_type->type,
     );
@@ -97,34 +106,23 @@ function bean_admin_ui_bean_types() {
 }
 
 /**
- * Get The Bean Types
+ * Get all Custom Bean Types
  */
 function bean_admin_ui_get_types() {
-  $bean_types = &drupal_static(__FUNCTION__);
+  ctools_include('export');
+  return ctools_export_load_object('bean_type');
+}
 
-  if (empty($bean_types)) {
-    $cache = cache_get('bean_types');
-    if (empty($cache->data)) {
-      // In install profiles, this function can get called before Drupal's created
-      // our database tables (see http://drupal.org/node/1179420), so don't crash
-      // Drupal installation by trying to get bean types; if we did, we'd query a
-      // nonexistent table.
-      if (defined('MAINTENANCE_MODE') && MAINTENANCE_MODE == 'install' &&
-          drupal_get_installed_schema_version('bean_admin_ui', TRUE) == SCHEMA_UNINSTALLED) {
-        $bean_types = array();
-      }
-      else {
-        ctools_include('export');
-        $bean_types = ctools_export_load_object('bean_type');
-        cache_set('bean_types', $bean_types);
-      }
-    }
-    else {
-      $bean_types = $cache->data;
-    }
-  }
+/**
+ * Implements hook_bean_cache_clear().
+ */
+function bean_admin_ui_bean_cache_clear() {
+  // Clear ctools cache.
+  ctools_include('export');
+  ctools_export_load_object_reset('bean_type');
 
-  return $bean_types;
+  // Flush caches.
+  cache_clear_all('bean_types', 'cache');
 }
 
 /**
@@ -133,13 +131,15 @@ function bean_admin_ui_get_types() {
 function _bean_admin_default_plugin() {
   return array(
     'label' => '',
+    'description' => '',
     'type' => '',
     'editable' => TRUE,
     'handler' => array(
       'info_file' => TRUE,
-      'file' => 'bean_custom.info',
-      'class' => 'bean_custom',
+      'class' => 'BeanCustom',
       'parent' => 'bean',
+      'file' => 'BeanCustom.class.php',
+      'path' => drupal_get_path('module', 'bean_admin_ui') . '/plugins',
     ),
   );
 }
@@ -153,7 +153,23 @@ function bean_admin_ui_features_api() {
     module_load_include('inc', 'features', 'includes/features.ctools');
     $api = ctools_component_features_api('bean_admin_ui');
     $api['bean_type']['name'] = 'Bean types';
-    $api['bean_type']['file'] = drupal_get_path('module', 'bean_admin_ui') .'/includes/features.inc';
+    $api['bean_type']['file'] = drupal_get_path('module', 'bean_admin_ui') . '/includes/features.inc';
   }
   return $api;
+}
+
+/**
+ * Implements hook_modules_enabled().
+ */
+function bean_admin_ui_modules_enabled($modules) {
+  $beans_found = FALSE;
+  foreach ($modules as $module) {
+    if (function_exists($module .'_bean_types')) {
+      $beans_found = TRUE;
+    }
+  }
+  // Flush bean caches and statics if any of the enabled modules provide bean types.
+  if ($beans_found) {
+    bean_reset();
+  }
 }
