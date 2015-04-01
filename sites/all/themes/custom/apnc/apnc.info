@@ -1,0 +1,47 @@
+screenshot  = screenshot.png
+name        = APNC Theme
+description = Custom APNC theme
+core        = 7.x
+base theme  = zen
+
+stylesheets[all][] = screen.css
+
+scripts[] = interaction.js
+
+regions[help]           = Help
+regions[homepage_slideshow] = Homepage Slideshow
+regions[homepage_news] = Homepage News
+regions[homepage_search] = Homepage Search
+regions[events_sidebar]  = Events sidebar
+regions[content]        = Content
+regions[sidebar_content_right]        = Sidebar Content Right
+regions[header]         = Header
+regions[footer]         = Footer
+regions[bottom]         = Page bottom
+regions[page_top]       = Page top
+regions[page_bottom]    = Page bottom
+
+features[] = logo
+features[] = name
+features[] = slogan
+features[] = node_user_picture
+features[] = comment_user_picture
+features[] = favicon
+features[] = main_menu
+features[] = secondary_menu
+
+; Set the default values of settings on the theme-settings.php form.
+
+settings[zen_breadcrumb]           = yes
+settings[zen_breadcrumb_separator] = ' › '
+settings[zen_breadcrumb_home]      = 1
+settings[zen_breadcrumb_trailing]  = 1
+settings[zen_breadcrumb_title]     = 0
+settings[zen_jump_link_target]     = main-menu
+settings[zen_rebuild_registry]     = 1
+settings[zen_wireframes]           = 0
+
+; To make this sub-theme an admin theme with shortcut links next to titles,
+; uncomment the line below.
+
+;settings[shortcut_module_link]    = 1

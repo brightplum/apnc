@@ -1,0 +1,206 @@
+<?php
+$current_theme = base_path() . drupal_get_path('theme', 'apnc') . '/';
+?>
+<link media="all" type="text/css" rel="stylesheet" href="<?php print $current_theme; ?>css/reset.css"/>
+<link media="all" type="text/css" rel="stylesheet" href="<?php print $current_theme; ?>css/common.css"/>
+<link media="all" type="text/css" rel="stylesheet" href="<?php print $current_theme; ?>css/tabs.css"/>
+<link media="all" type="text/css" rel="stylesheet" href="<?php print $current_theme; ?>css/apnc.css"/>
+
+<script src="<?php print $current_theme; ?>js/jquery-1.10.2.js"></script>
+<script src="<?php print $current_theme; ?>js/jquery-ui.js"></script>
+<script src="http://www.jacklmoore.com/colorbox/jquery.colorbox.js"></script>
+<link rel="stylesheet" href="http://www.jacklmoore.com/colorbox/example1/colorbox.css"/>
+
+<script>
+    $(function() {
+        $("#tabs").tabs();
+        $(".group1").colorbox();
+        $(".youtube").colorbox({iframe: true, innerWidth: 640, innerHeight: 390});
+    });
+</script>
+
+
+<?php
+$home_node = node_load(125);
+?>
+<div class="container">
+    <div class="topTree"></div>
+    <div class="bottomTree"></div>
+    <!--            <div class="topTree lfloat"></div>-->
+    <div class="wrapper">
+        <div class="topTreeInner"></div>
+        <div class="siteTitle">CHICAGO COHORT YOUTH<br>LEADERSHIP PIPELINE PROJECT</div>
+        <div class="downloadArea"><span>Download the report</span><a target="_blank" href="<?php
+            $download_place = explode("public://", $home_node->field_chicago_hp_download_report['und'][0]['uri']);
+            $download_path = "http://" . $_SERVER['HTTP_HOST'] . "/sites/apncorganizing.org/files/" . $download_place[1];
+            print $download_path
+            ?>" class="btnDownload"></a></div>
+        <div id="innerWrapper">
+            <div id="photoGallery">
+                <div class="photoItem lfloat">
+
+                    <?php
+                    $img_place1 = explode("public://", $home_node->field_chicago_hp_main_file1['und'][0]['uri']);
+
+                    if ($home_node->field_chicago_file_type1[$home_node->language][0]['value'] == 'video') {
+                        $image_path_url1 = "http://www.youtube.com/embed/" . $home_node->field_chicago_hp_video_url1[$home_node->language][0]['value'] . "?rel=0&amp;wmode=transparent";
+                        $class = "youtube";
+                    } else {
+
+                        $image_path_url1 = "http://" . $_SERVER['HTTP_HOST'] . "/sites/apncorganizing.org/files/" . $img_place1[1];
+                        $class = "group1";
+                    }
+                    ?>
+                    <a href="<?php print $image_path_url1; ?>" class="<?php print $class ?> cboxElement">
+                        <?php
+                        print theme('image_style', array('style_name' => 'chicago_homepage_images', 'path' => $home_node->field_chicago_hp_main_file1['und'][0]['uri']));
+                        ?>
+                        <?php
+                        if ($home_node->field_chicago_file_type1[$home_node->language][0]['value'] == 'video')
+                            print '<div><a href="" class="play"></a></div>';
+                        ?>
+                    </a>
+                </div>
+
+                <div class="photoItem lfloat">
+                    <?php
+                    $img_place2 = explode("public://", $home_node->field_chicago_hp_main_file2['und'][0]['uri']);
+
+                    if ($home_node->field_chicago_file_type2[$home_node->language][0]['value'] == 'video') {
+                        $image_path_url2 = "http://www.youtube.com/embed/" . $home_node->field_chicago_hp_video_url2[$home_node->language][0]['value'] . "?rel=0&amp;wmode=transparent";
+                        $class = "youtube";
+                    } else {
+
+                        $image_path_url2 = "http://" . $_SERVER['HTTP_HOST'] . "/sites/apncorganizing.org/files/" . $img_place2[1];
+                        $class = "group1";
+                    }
+                    ?>
+                    <a href="<?php print $image_path_url2; ?>" class="<?php print $class ?> cboxElement">
+                        <?php
+                        print theme('image_style', array('style_name' => 'chicago_homepage_images', 'path' => $home_node->field_chicago_hp_main_file2['und'][0]['uri']));
+                        ?>
+                        <?php
+                        if ($home_node->field_chicago_file_type2[$home_node->language][0]['value'] == 'video')
+                            print '<div><a href="" class="play"></a></div>';
+                        ?>
+                    </a>
+                </div>
+                <div class="photoItem lfloat">
+                    <?php
+                    $img_place3 = explode("public://", $home_node->field_chicago_hp_main_file3['und'][0]['uri']);
+
+                    if ($home_node->field_chicago_file_type3[$home_node->language][0]['value'] == 'video') {
+                        $image_path_url3 = "http://www.youtube.com/embed/" . $home_node->field_chicago_hp_video_url3[$home_node->language][0]['value'] . "?rel=0&amp;wmode=transparent";
+                        $class = "youtube";
+                    } else {
+
+                        $image_path_url3 = "http://" . $_SERVER['HTTP_HOST'] . "/sites/apncorganizing.org/files/" . $img_place3[1];
+                        $class = "group1";
+                    }
+                    ?>
+                    <a href="<?php print $image_path_url3; ?>" class="<?php print $class; ?> cboxElement">
+                        <?php
+                        print theme('image_style', array('style_name' => 'chicago_homepage_images', 'path' => $home_node->field_chicago_hp_main_file3['und'][0]['uri']));
+                        ?>
+                        <?php
+                        if ($home_node->field_chicago_file_type3[$home_node->language][0]['value'] == 'video')
+                            print '<div><a href="" class="play"></a></div>';
+                        ?>
+                    </a>
+                </div>
+                <div class="photoItem lfloat last">
+                    <?php
+                    $img_place4 = explode("public://", $home_node->field_chicago_hp_main_file4['und'][0]['uri']);
+
+                    if ($home_node->field_chicago_file_type4[$home_node->language][0]['value'] == 'video') {
+                        $image_path_url4 = "http://www.youtube.com/embed/" . $home_node->field_chicago_hp_video_url4[$home_node->language][0]['value'] . "?rel=0&amp;wmode=transparent";
+                        $class = "youtube";
+                    } else {
+
+                        $image_path_url4 = "http://" . $_SERVER['HTTP_HOST'] . "/sites/apncorganizing.org/files/" . $img_place4[1];
+                        $class = "group1";
+                    }
+                    ?>
+                    <a href="<?php print $image_path_url4; ?>" class="<?php print $class; ?> cboxElement">
+                        <?php
+                        print theme('image_style', array('style_name' => 'chicago_homepage_images', 'path' => $home_node->field_chicago_hp_main_file4['und'][0]['uri']));
+                        ?>
+
+                        <?php
+                        if ($home_node->field_chicago_file_type4[$home_node->language][0]['value'] == 'video')
+                            print '<div><a href="" class="play"></a></div>';
+                        ?>
+                    </a>
+                </div>
+
+
+                <div class="clear"></div>
+            </div>
+
+
+            <div class="navArea lfloat">
+                <?php $nid = $node->nid; ?>
+                <div class="btnNav <?php if ($nid == '125') print 'active'; ?>"><a href="<?php print url('node/125') ?>">home</a></div>
+                <div class="btnNav <?php if ($nid == '124') print 'active'; ?>"><a href="<?php print url('node/124') ?>">key approaches</a></div>
+                <div class="btnNav <?php if ($nid == '123') print 'active'; ?>"><a href="<?php print url('node/123') ?>">successes and challenges</a></div>
+
+            </div>
+            <div class="navContArea rfloat">
+
+
+
+
+                <div id="secondary_page_">
+                    <?php print $messages; ?>
+                    <?php if ($tabs = render($tabs)): ?>
+                        <div class="tabs"><?php print $tabs; ?></div>
+                    <?php endif; ?>
+                    <?php print render($page['help']); ?>
+                    <div id="content">
+                        <?php print render($title_prefix); ?>
+                        <?php if ($title): ?>
+                            <h1><?php //print $title;            ?></h1>
+                        <?php endif; ?>
+                        <?php print render($title_suffix); ?>
+                        <?php print render($page['content']); ?>
+                    </div> <!-- /content -->
+
+
+                </div> <!-- /secondary_page -->
+
+            </div>
+            <div class="clear"></div>
+
+
+
+
+        </div>
+
+
+        <div id="apncFooter">
+
+            <span class="footerBold">Our Organizations:</span><br>
+            <?php
+            if (isset($home_node->field_chicago_hp_organizations['und'][0]['value']))
+                print $home_node->field_chicago_hp_organizations['und'][0]['value'];
+            ?>
+
+            <div class="rfloat socialLinks">
+                <a href=""><img src="<?php print $current_theme; ?>images/btn-fb.png"></a>
+                <a href=""><img src="<?php print $current_theme; ?>images/btn-tweet.png"></a>
+                <a href=""><img src="<?php print $current_theme; ?>images/btn-utube.png"></a>
+                <a href=""><img src="<?php print $current_theme; ?>images/btn-blog.png"></a>
+                <a href=""><img src="<?php print $current_theme; ?>images/btn-4square.png"></a>
+                <a href=""><img src="<?php print $current_theme; ?>images/btn-fliker.png"></a>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+    </div><!-- .wrapper -->
+
+
+
+
+</div><!-- .container -->
+
+

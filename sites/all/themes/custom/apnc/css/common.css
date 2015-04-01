@@ -1,0 +1,21 @@
+/* @import must be at top of file, otherwise CSS will not work */
+/*@import url("//hello.myfonts.net/count/26707c");*/
+
+@font-face {
+    font-family: 'calibriLight';
+    src: url('fonts/calibri_light.eot');
+    src: url('fonts/calibri_light.eot?#iefix') format('embedded-opentype'),
+        url('fonts/calibri_light.woff') format('woff'),
+        url('fonts/calibri_light.ttf') format('truetype');
+    font-weight: normal;
+}
+
+
+@font-face {
+    font-family: 'calibriBold';
+    src: url('fonts/CALIBRIB.eot');
+    src: url('fonts/CALIBRIB.eot?#iefix') format('embedded-opentype'),
+        url('fonts/CALIBRIB.woff') format('woff'),
+        url('fonts/CALIBRIB.ttf') format('truetype');
+    font-weight: normal;
+}
