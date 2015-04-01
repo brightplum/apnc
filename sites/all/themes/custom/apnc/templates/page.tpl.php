@@ -6,7 +6,7 @@
 
 <?php if ($main_menu): ?>
 
-    <?php print drupal_render(menu_tree('main-menu')); ?>
+    <?php $menu_tree = menu_tree('main-menu'); print drupal_render($menu_tree); ?>
 
 <?php endif; ?>
 
@@ -22,7 +22,7 @@
         <?php print render($title_prefix); ?>
         <?php
 // Added by jkamel@arkdev.net
-        if ($node->type != "apnc_develop_young_people") {
+        if (isset($node) && ($node->type != "apnc_develop_young_people")) {
             ?>
             <?php if ($title): ?>
                 <h1><?php print $title; ?></h1>
@@ -37,7 +37,7 @@
 </div> <!-- /secondary_page -->
 <?php
 // Added by jkamel@arkdev.net
-if ($node->type != "apnc_develop_young_people") {
+if (isset($node) && ($node->type != "apnc_develop_young_people")) {
     ?>
     <div id="events">
         <?php print render($page['events_sidebar']); ?>

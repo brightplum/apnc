@@ -43,16 +43,18 @@ function apnc_preprocess_node(&$vars) {
  */
 
 function apnc_preprocess_page(&$vars, $hook) {
-    $node = menu_get_object('node');
+  $node = menu_get_object('node');
+  if (isset($node)) {
     if ($node->type == 'page') {
-        node_build_content($node);
-        $block = $node->content['field_page_rightsidebar'];
-        $vars['page']['events_sidebar'] = $vars['page']['events_sidebar'] + array($block);
+      node_build_content($node);
+      $block = $node->content['field_page_rightsidebar'];
+      $vars['page']['events_sidebar'] = $vars['page']['events_sidebar'] + array($block);
     }
     //Added by jkamel@arkdev.net
     if ($node->type == 'chicago_homepage' || $node->type == 'chicago_inner_pages') {
-        $vars['theme_hook_suggestions'][] = 'page__chicagocohort';
+      $vars['theme_hook_suggestions'][] = 'page__chicagocohort';
     }
+  }
 }
 
 function apnc_menu_tree__main_menu(&$variables) {
