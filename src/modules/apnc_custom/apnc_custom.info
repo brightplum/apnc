@@ -1,9 +1,0 @@
-name = APNC Custom
-description = Custom functionality for APNC
-core = 7.x
-package = APNC
-
-files[] = apnc_custom.module
-
-core = "7.x"
-project = "apnc_custom"
