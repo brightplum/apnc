@@ -89,13 +89,15 @@ function apnc_custom_theme() {
  **/
 function apnc_custom_page_right_imgs() {
 	$node = menu_get_object('node');
-	$images = field_get_items('node', $node, 'field_page_rightimg');
-	if (!empty($images)) {
-		foreach ($images as $image) {
-			$output[] = theme('image', array('path' => $image['file']->uri));
-		}
-		return theme('item_list', array('items' => $output));
-	}
+  if (isset($node)) {
+    $images = field_get_items('node', $node, 'field_page_rightimg');
+    if (!empty($images)) {
+      foreach ($images as $image) {
+        $output[] = theme('image', array('path' => $image['file']->uri));
+      }
+      return theme('item_list', array('items' => $output));
+    }
+  }
 }
 
 function apnc_custom_homepage_slideshow() {
